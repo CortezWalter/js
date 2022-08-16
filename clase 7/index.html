@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto final - JS</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            text-align: center;
+        }
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Productos seleccionados:</h1> 
+    
+    <script>
+
+        class Productos {
+            constructor(nombre, tipo, precio, id, stock) {
+                this.nombre = nombre, 
+                this.tipo = tipo,
+                this.precio = precio, 
+                this.id = id
+                this.stock = stock
+            }
+            venta(cantidadVenta) {
+                this.stock = this.stock - cantidadVenta; 
+            };
+        }
+
+        let Pan1 = new Productos('Pan de molde', 'pan', 250, 1, 10); 
+        let Pan2 = new Productos('Pan de queso', 'pan', 450, 2, 10);
+        let Pan3 = new Productos('Pan de hierbas', 'pan' ,350, 3, 10);
+        let Pan4 = new Productos('Pan de ajo', 'pan', 300, 4, 10); 
+        let Pan5 = new Productos('Pan de cebolla', 'Pan', 300, 5, 10);
+
+        const Panes = []; 
+        Panes.push(Pan1);
+        Panes.push(Pan2); 
+        Panes.push(Pan3); 
+        Panes.push(Pan4); 
+        Panes.push(Pan5); 
+
+        let Budin1 = new Productos('Budin de vainilla', 'budin', 200, 1, 20); 
+        let Budin2 = new Productos('Budin de Naranja', 'budin', 250, 2, 20);
+        let Budin3 = new Productos('Budin de Limon', 'budin', 250, 3, 20); 
+
+        const Budines = []; 
+        Budines.push(Budin1);
+        Budines.push(Budin2);
+        Budines.push(Budin3);
+
+        let Tarta1 = new Productos('Tarta de frutilla', 'tarta', 850, 1, 5);
+        let Tarta2 = new Productos('Lemmon pie', 'tarta', 650, 2, 5); 
+        let Tarta3 = new Productos('Brownie cake', 'tarta', 900, 3, 5); 
+        let Tarta4 = new Productos('Tarta cabsha', 'tarta', 750, 4, 5);  
+
+        const Tartas = []; 
+        Tartas.push(Tarta1);
+        Tartas.push(Tarta2);
+        Tartas.push(Tarta3);
+        Tartas.push(Tarta4);
+
+        function compraTarta () {
+            alert('A continuación verá los productos por su nombre y precio.')
+            alert(Tarta1.nombre + ': ' + '$' + Tarta1.precio + " c/u" + '\n' + Tarta2.nombre + ': ' + '$' + Tarta2.precio + " c/u" + '\n' + Tarta3.nombre + ': ' + '$' + Tarta3.precio + " c/u" + '\n' + Tarta4.nombre + ': ' + '$' + Tarta4.precio + " c/u" + '\n' );
+            let quiereTarta = prompt('Quiere alguna de estas? Ingrese: si o no').toLowerCase();
+            let precioTartaTotal = 0; 
+            if (quiereTarta != 'si' && quiereTarta != 'no'){
+                quiereTarta = prompt('Por favor, ingrese si o no');
+            }   
+            while (quiereTarta == 'si') {
+                let queTarta = prompt('Que tarta quiere comprar? Ingrese: '+ '\n' +  Tarta1.nombre + '\n' + Tarta2.nombre + '\n' + Tarta3.nombre + '\n' + Tarta4.nombre + '\n');
+                if (!Tartas.find(f => f.nombre == queTarta)) {
+                    quiereTarta = prompt('No queda disponible del elegido, desea otro? Ingrese: si o no'); 
+                } else {
+                    let laTarta = Tartas.find(f => f.nombre == queTarta);
+                    let cuantasTartas = parseInt(prompt('Cuántas quiere comprar?'));
+                    if (cuantasTartas > laTarta.stock) {
+                        alert('No tenemos esa cantidad, solo tenemos ' + laTarta.stock + ' unidades');
+                    } else {
+                        precioTartaTotal = precioTartaTotal + (laTarta.precio * cuantasTartas);
+                        alert('Son $' + precioTartaTotal);
+                        laTarta.venta(cuantasTartas);
+                    }
+                    quiereTarta = prompt('Quiere comprar otra Tarta?');
+                }
+            }
+            return precioTartaTotal; 
+        }
+
+        function compraBudin () {
+            alert('A continuación verá los productos por su nombre y precio.')
+            alert(Budin1.nombre + ': ' + '$' + Budin1.precio + " c/u" + '\n' + Budin2.nombre + ': ' + '$' + Budin2.precio + " c/u" + '\n' + Budin3.nombre + ': ' + '$' + Budin3.precio + " c/u" + '\n');
+            let quiereBudin = prompt('Quiere alguno de estos? Ingrese: si o no').toLowerCase(); 
+            let precioBudinTotal = 0; 
+            if (quiereBudin != 'si' && quiereBudin != 'no'){
+                quiereBudin = prompt('Por favor, ingrese si o no');
+            } 
+            while (quiereBudin == 'si') {
+                let cualBudin = prompt('Que budin quiere comprar? Ingrese: '+ '\n' +  Budin1.nombre + '\n' + Budin2.nombre + '\n' + Budin3.nombre + '\n');
+                if (!Budines.find(r => r.nombre == cualBudin)) {
+                    quiereBudin = prompt('No tenemos disponible el elegido, desea otro? Ingrese: si o no');
+                } else {
+                    let elBudin = Budines.find(r => r.nombre == cualBudin); 
+                    let cuantosBudines = parseInt(prompt('Cuántos quiere comprar?'));
+                    if (cuantosBudines > elBudin.stock) {
+                        alert('No tenemos esa cantidad, solo tenemos ' + elBudin.stock + ' unidades');
+                    } else {
+                        precioBudinTotal = precioBudinTotal + (elBudin.precio * cuantosBudines); 
+                        alert('Son $' + precioBudinTotal); 
+                        elBudin.venta(cuantosBudines);
+                    }
+                    quiereBudin = prompt('Quiere comprar otro Budin?'); 
+                }
+            }
+            return precioBudinTotal; 
+        }
+
+        function compraPan () {
+            alert('A continuación verá los productos por su nombre y precio.')
+            alert(Pan1.nombre + ': ' + '$' + Pan1.precio + " c/u" + '\n' + Pan2.nombre + ': ' + '$' + Pan2.precio + " c/u" + '\n' + Pan3.nombre + ': ' + '$' + Pan3.precio + " c/u" + '\n' + Pan4.nombre + ': ' + '$' + Pan4.precio + " c/u" + '\n' + Pan5.nombre + ': ' + '$' + Pan5.precio + " c/u" + '\n');
+            let quierePan = prompt('Quiere alguno de estos? Ingrese: si o no').toLowerCase(); 
+            let precioPanTotal = 0;
+            if (quierePan != 'si' && quierePan != 'no'){
+                quierePan = prompt('Por favor, ingrese si o no');
+            } 
+            while (quierePan == 'si') {
+                let quePan = prompt('Que pan quiere comprar? Ingrese: '+ '\n' +  Pan1.nombre + '\n' + Pan2.nombre + '\n' + Pan3.nombre + '\n' + Pan4.nombre + '\n' + Pan5.nombre + '\n'); 
+                if (!Panes.find(c => c.nombre == quePan)) {
+                    quierePan = prompt('No tenemos disponible el elegido, desea otro? Ingrese: si o no'); 
+                } else {
+                    let elPan = Panes.find(c => c.nombre == quePan); 
+                    let cuantosPanes = parseInt(prompt('Cuántos quiere comprar?')); 
+                    if (cuantosPanes > elPan.stock) {
+                        alert('No tenemos esa cantidad, solo tenemos ' + elPan.stock + ' unidades'); 
+                    } else {
+                        precioPanTotal = precioPanTotal + (elPan.precio * cuantosPanes); 
+                        alert('Son $' + precioPanTotal); 
+                        elPan.venta(cuantosPanes);  
+                }
+                quierePan = prompt('Quiere comprar otro Pan? Ingrese si o no');
+                }   
+            }
+            return precioPanTotal; 
+        }
+
+        let quiereComprar = prompt('Quiere realizar alguna compra? Ingresa: si o no').toLowerCase();
+        let valorCompra = 0;
+        let TartasComprados = [];
+        let BudinesCompradas = [];
+        let PanesCompradas = [];  
+        while (quiereComprar == 'si') {
+            let productoDeseado = prompt('Quiere comprar Pan, Budin o Tarta?'); 
+            while( productoDeseado != "Pan" && productoDeseado != "Budin" && productoDeseado != "Tarta") {
+                alert("El usuario ingreso un valor erroneo. Ingresa: Pan o Budin o Tartas");
+                productoDeseado = prompt('Quiere comprar Pan, Budin o Tarta?')
+            } 
+            switch(productoDeseado) {
+                case 'Tarta': 
+                    let precioCompraTarta = compraTarta(); 
+                    valorCompra = valorCompra + precioCompraTarta; 
+                    break; 
+                case 'Budin': 
+                    let precioCompraBudin = compraBudin(); 
+                    valorCompra = valorCompra + precioCompraBudin; 
+                    break; 
+                case 'Pan': 
+                    let precioCompraPan = compraPan(); 
+                    valorCompra = valorCompra + precioCompraPan; 
+                    break; 
+                default: 
+                    alert('No tenemos ese producto. Ingrese: Pan, Budin o Tarta'); 
+                    break;  
+            }
+            alert('El valor de su compra es de $' + valorCompra);
+            quiereComprar = prompt('Quiere seguir comprando?'); 
+        }
+
+
+    </script>
+
+</body>
+</html>
